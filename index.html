@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .wrap{
+            margin: 10px auto;
+            width: 329px;
+            height: 640px;
+            padding-top: 200px;
+        }
+        .inputBoxContainer{
+            width: 242px;
+            height: 50px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .inputBoxContainer .bogusInput{
+            width: 100%;
+            height: 100%;
+            border: #c3c3c3 1px solid;
+            border-radius: 7px;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            overflow: hidden;
+            position: absolute;
+            z-index: 0;
+        }
+        .inputBoxContainer .realInput{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top:0;
+            left: 0;
+            z-index: 1;
+            filter:alpha(opacity=0);
+            -moz-opacity:0;
+            opacity:0;
+        }
+        .inputBoxContainer .bogusInput input{
+            padding: 0;
+            width: 25%;
+            height: 100%;
+            float:left;
+            background: #ffffff;
+            text-align: right;
+            font-size: 20px;
+            border: none;
+            border-right: #C3C3C3 1px solid;
+        }
+        .inputBoxContainer .bogusInput input:last-child{
+            border: none;
+        }
+
+    </style>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(setRem());
+        $(window).resize(function(){
+            setRem()
+        });
+        function setRem(){
+            var w=parseFloat($('html').css('width'));
+            $('html').css('font-size',w/750*40+'px');
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="inputBoxContainer" id="inputBoxContainer">
+        <input type="password" class="realInput"/>
+        <div class="bogusInput">
+            <input type="number" maxlength="4" oninput="if(value.length>4)value=value.slice(0,4)" disabled/>
+            <input type="number" maxlength="4" oninput="if(value.length>4)value=value.slice(0,4)" disabled/>
+            <input type="number" maxlength="4" oninput="if(value.length>4)value=value.slice(0,4)" disabled/>
+            <input type="number" maxlength="4" oninput="if(value.length>4)value=value.slice(0,4)" disabled/>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+<script>
+    (function(){
+        var container = document.getElementById("inputBoxContainer");
+        boxInput = {
+            maxLength:"",
+            realInput:"",
+            bogusInput:"",
+            bogusInputArr:"",
+            callback:"",
+            init:function(fun){
+                var that = this;
+                this.callback = fun;
+                that.realInput = container.children[0];
+                that.bogusInput = container.children[1];
+                that.bogusInputArr = that.bogusInput.children;
+                that.maxLength = that.bogusInputArr[0].getAttribute("maxlength");
+                that.realInput.oninput = function(){
+                    that.setValue();
+                }
+                that.realInput.onpropertychange = function(){
+                    that.setValue();
+                }
+            },
+            setValue:function(){
+                this.realInput.value = this.realInput.value.replace(/\D/g,"");
+
+                var real_str = this.realInput.value;
+                for(var i = 0 ; i < this.maxLength ; i++){
+                    this.bogusInputArr[i].value = real_str[i]?real_str[i]:"";
+                }
+                if(real_str.length >= this.maxLength){
+                    this.realInput.value = real_str.substring(0,4);
+                    this.callback();
+                }
+                console.log(this.realInput.value.replace(/\D/g,""))
+            }
+
+        }
+    })()
+    boxInput.init(function(){
+
+    });
+
+
+
+
+</script>
