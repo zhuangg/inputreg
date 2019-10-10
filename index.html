@@ -42,8 +42,9 @@
             left: 0;
             z-index: 1;
             filter:alpha(opacity=0);
-            -moz-opacity:0;
-            opacity:0;
+            /*-moz-opacity:0;*/
+            /*opacity:0;*/
+            visibility: hidden;
         }
         .inputBoxContainer .bogusInput input{
             padding: 0;
@@ -56,6 +57,8 @@
             border: 1px solid #D8D8D8;
             margin-right: .2rem;
             border-radius: .2rem;
+            opacity: 1;
+            -webkit-appearance: none;
         }
         .inputBoxContainer .bogusInput input:last-child{
             margin: 0;
@@ -101,6 +104,10 @@
         .inputBoxContainer .bogusInput input.regerror{
             border: 1px solid #FF0000;
             color: #FF0000;
+        }
+
+        input:disabled, textarea:disabled {
+            opacity: 1;
         }
 
     </style>
