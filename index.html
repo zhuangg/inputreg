@@ -60,6 +60,9 @@
         .inputBoxContainer .bogusInput input:last-child{
             margin: 0;
         }
+        .layer{
+            display: none;
+        }
 
         .regbox{
             width: 13.5rem;
@@ -101,7 +104,10 @@
         }
 
     </style>
-    <script src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="core.js"></script>
+    <script type="text/javascript" src="md5.js"></script>
+    <script src="regcode.js"></script>
     <script>
         $(setRem());
         $(window).resize(function(){
@@ -135,6 +141,7 @@
 </body>
 </html>
 <script>
+
     (function(){
         var container = document.getElementById("inputBoxContainer");
         boxInput = {
@@ -169,6 +176,9 @@
                     this.callback();
                 }
                 console.log(this.realInput.value.replace(/\D/g,""))
+                if(this.realInput.value.replace(/\D/g,"") == ''){
+                    $('.bogusInput input').removeClass('active')
+                }
                 if(this.realInput.value.length != 0){
                     console.log(this.realInput.value.length)
                     $('.bogusInput input').removeClass('regerror').eq(this.realInput.value.length - 1).addClass('active').nextAll('input').removeClass('active')
@@ -189,6 +199,39 @@
     });
 
 
+    //getcode
+    var a = {
+        a:1,
+        null: null,
+        z:9
+    }
+
+    // console.log(getdata(a))
+    getdata(a)
+
+    //ajax
+    // $.ajax({
+    //     url: 'http://rap2.shxgroup.net/mock/15/vip/gitCoupon',
+    //     type: 'POST',
+    //     data: {
+    //
+    //     },
+    //     contentType: 'application/x-www-form-urlencoded',
+    //     success: function (res) {
+    //         console.log(res);
+    //         if(res.code == 200 || res.success == true){
+    //
+    //         }
+    //     },
+    //     error:function () {
+    //
+    //     }
+    // })
 
 
+</script>
+<script>
+    $(function () {
+        $('.layer').show()
+    })
 </script>
