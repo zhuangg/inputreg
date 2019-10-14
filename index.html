@@ -238,8 +238,14 @@
 </script>
 <script>
     $(function () {
+        var inputf = 0;
         $('.layer').show()      
-        $('.realInput').click()
+        setTimeout(function(){
+            inputf = 1;
+        },2000)
+        if(inputf == 1){
+            $('.realInput').focus()
+        }       
     })
     
 </script>
